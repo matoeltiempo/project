@@ -35,14 +35,6 @@ class Card {
     this.like = this.like.bind(this);
     this.remove = this.remove.bind(this);
 
-    /**
-     * Можно улучшить
-     * 
-     * удобнее записывать все параметры в поля класса
-     * это позволит использовать внутри методов без повторной передачи
-     * как this.name и тд
-     */
-
     this.likeButton = this.cardElement.querySelector('.place-card__like-icon');
     this.removeButton = this.cardElement.querySelector('.place-card__delete-icon');
 
@@ -68,7 +60,7 @@ class Card {
     cardName.textContent = name;
     cardLikeIcon.classList.add('place-card__like-icon');
     cardLikeValue.classList.add('place-card__like-value');
-   
+
 
     placesList.appendChild(card);
     card.appendChild(cardImage);
@@ -103,17 +95,10 @@ class CardList {
   }
   addCard(name, link, id, owner, likes) {
     const { cardElement } = new Card(name, link, id, owner, likes);
-    // когда полей много проще передавать весь объект а внутри класса уже
-    // разбирать объект https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
-    // const { cardElement } = new Card(itemData)
-    // class Card {
-    //  constructor({ name, link, id, owner, likes }) {
-    // this.name = name в таком формате
     this.container.appendChild(cardElement);
   }
   render() {
     this.data.forEach(item => {
-      // получается много параметров - передавать проще весь объект
       this.addCard(item.name, item.link, item._id, item.owner._id, item.likes);
     });
   }
@@ -141,8 +126,11 @@ const popupEditLvl = new Popup(editUserLevel);
 const popupImageLvl = new Popup(imageLevel);
 const popupAvatarLvl = new Popup(avatarLevel);
 
+const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
+// const serverUrl = 'https://praktikum.tk/cohort2';
+
 const userOptions = {
-  baseUrl: 'http://95.216.175.5/cohort2',
+  baseUrl: serverUrl,
   headers: {
     authorization: '98158e4b-35d4-4082-a4a4-b4f3010b8fcd',
     'Content-Type': 'application/json'
