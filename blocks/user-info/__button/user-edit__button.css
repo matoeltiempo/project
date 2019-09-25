@@ -1,0 +1,12 @@
+.user-edit__button {
+    position: flex;
+    margin-top: 20px;
+    margin-left: 0px;
+}
+
+@media screen and (max-width: 980px) {
+    .user-info__button {
+        margin: 0px;        
+    }
+  }
+  
