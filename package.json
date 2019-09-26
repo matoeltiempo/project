@@ -2,7 +2,6 @@
   "name": "project",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production rimraf dist && webpack --mode production",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --watch",
