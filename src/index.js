@@ -108,11 +108,17 @@ export default class Card {
         this.likeButton.classList.toggle('place-card__like-icon_liked');
     }
     remove() {
-        
-        deleteCard(this.cardElement.id);
-        this.cardElement.remove('.place-card');
-        this.likeButton.removeEventListener('click', this.like);
-        this.removeButton.removeEventListener('click', this.remove);
+        if (confirm('Вы действительно хотите удалить карточку?')) {
+            api.deleteCard(this.cardElement.id)
+                .then(res => {
+                    this.cardElement.remove('.place-card');
+                    this.likeButton.removeEventListener('click', this.like);
+                    this.removeButton.removeEventListener('click', this.remove);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
     }
 }
 
