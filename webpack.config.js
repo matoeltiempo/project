@@ -22,29 +22,40 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/i,
+                test: /\.(woff|woff2|ttf|otf|png|jpe?g|gif|svg)$/i,
                 use: [
-                    (isDev ? 'style-loader' : MiniCssExtractPlugin.loader),
-                    'css-loader',
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]'
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            bypassOnDebug: true,
+                            disable: true,
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(p|post|)css$/,
+                use: [
+                    isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: { importLoaders: 1 }
+                    },
                     'postcss-loader'
                 ]
             },
-            {
-                test: /\.(png|jpg|gif|ico|svg)$/,
-                use: [
-                    'file-loader?name=../images/[name].[ext]',
-                    {
-                        loader: 'image-webpack-loader'
-                    },
-                ]
-            },
-            {
-                test: /\.(eot|ttf|woff|woff2)$/,
-                loader: 'file-loader?name=./vendor/[name].[ext]'
-
-            }
-
         ]
+    },
+    resolve: {
+        alias: {
+            images: path.resolve(__dirname, "src/images")
+        }
     },
     plugins: [
         new MiniCssExtractPlugin({ // 
@@ -61,7 +72,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             inject: false,
             hash: true,
-            template: './src/index.html',
+            template: './index.html',
             filename: 'index.html'
         }),
         new WebpackMd5Hash(),
@@ -70,6 +81,8 @@ module.exports = {
         })
     ],
     devServer: {
+        historyApiFallback: true,
+        noInfo: false,
         overlay: true
     },
 };
