@@ -3,11 +3,11 @@ import './index.css';
 import CardList from './js/cardlist.js';
 import Api from './js/Api.js';
 
-import {resetPopupAddCard} from './js/Card.js';
-import {deleteCard} from './js/Api.js';
-import {profileInfo, profileValue} from './js/profileinfo.js';
-import {saveAvatar} from './js/saveavatar.js';
-import {activateError, resetError} from './js/activateError';
+import { resetPopupAddCard } from './js/Card.js';
+import { deleteCard } from './js/Api.js';
+import { profileInfo, profileValue } from './js/profileinfo.js';
+import { saveAvatar } from './js/saveavatar.js';
+import { handleValidate, handleValidatePopup, handleValidateAvatar } from './js/handlevalidate.js';
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
@@ -16,14 +16,11 @@ export const userName = root.querySelector('.user-info__name');
 export const userInfo = root.querySelector('.user-info__job');
 export const userPhoto = root.querySelector('.user-info__photo');
 
-const formPoput = document.querySelector('.popup__form');
-const formProfile = document.querySelector('.popup__form_profile');
-const formAvatar = document.querySelector('.popup__form_avatar');
-const popupInputName = document.querySelector('.popup__input_type_name');
-const popupInputLinkUrl = document.querySelector('.popup__input_type_link-url');
-const popupAvatarInputLinkUrl = document.querySelector('.popup__input-avatar_type_link-url');
-const errorElementAvatar = document.querySelector('.error-message_url');
+export const formPopup = document.querySelector('.popup__form');
+export const formProfile = document.querySelector('.popup__form_profile');
+export const formAvatar = document.querySelector('.popup__form_avatar');
 
+const errorElementAvatar = document.querySelector('.error-message_url');
 const popupAddCard = document.querySelector('.popup_add-new-card');
 const popupForm = popupAddCard.querySelector('.popup__form');
 const buttonAdd = popupForm.querySelector('.popup__button');
@@ -32,7 +29,6 @@ const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 
 export const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 export const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
-
 export const buttonEdit = document.querySelector('.popup-profile__button');
 export const buttonSave = document.querySelector('.popup-avatar__button');
 
@@ -42,11 +38,11 @@ const openImage = popupImage.querySelector('.open_image');
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
 export const userOptions = {
-  baseUrl: serverUrl,
-  headers: {
-    authorization: '98158e4b-35d4-4082-a4a4-b4f3010b8fcd',
-    'Content-Type': 'application/json'
-  }
+    baseUrl: serverUrl,
+    headers: {
+        authorization: '98158e4b-35d4-4082-a4a4-b4f3010b8fcd',
+        'Content-Type': 'application/json'
+    }
 };
 
 export default class Card {
@@ -130,8 +126,6 @@ export const popupEditLvl = new Popup(editUserLevel);
 export const popupImageLvl = new Popup(imageLevel);
 export const popupAvatarLvl = new Popup(avatarLevel);
 
-
-
 export const api = new Api(userOptions);
 
 api.getUserData()
@@ -155,43 +149,6 @@ api.getInitialCards()
     .catch((err) => {
         console.log(err);
     });
-
-
-
-function handleValidatePopup() {
-    const titleIsValid = validate(popupInputName);
-    const linkUrlIsValid = validate(popupInputLinkUrl);
-    const submitButtonPopup = formPoput.querySelector('.popup__button');
-
-    if (titleIsValid && linkUrlIsValid) {
-        resetError(submitButtonPopup);
-    } else {
-        activateError(submitButtonPopup);
-    }
-}
-
-function handleValidate() {
-    const nameIsValid = validate(inputProfileName);
-    const infoIsValid = validate(inputProfileInfo);
-    const submitButton = formProfile.querySelector('.popup__button');
-
-    if (nameIsValid && infoIsValid) {
-        resetError(submitButton);
-    } else {
-        activateError(submitButton);
-    }
-}
-
-function handleValidateAvatar() {
-    const linkUrlIsValid = validate(popupAvatarInputLinkUrl);
-    const submitButtonAvatar = formAvatar.querySelector('.popup__button');
-
-    if (linkUrlIsValid) {
-        resetError(submitButtonAvatar);
-    } else {
-        activateError(submitButtonAvatar);
-    }
-}
 
 export function validate(element) {
     const errorElement = document.querySelector(`.error-message_${element.name}`);
@@ -242,7 +199,7 @@ function newCard(event) {
 root.addEventListener('click', function (event) {
     if (event.target.classList.contains('user-info__button')) {
         resetPopupAddCard();
-        formPoput.reset();
+        formPopup.reset();
         popupCardLvl.open();
     } else if (event.target.classList.contains('user-edit__button')) {
         profileValue();
@@ -264,5 +221,5 @@ buttonAdd.addEventListener('click', newCard);
 buttonEdit.addEventListener('click', profileInfo);
 buttonSave.addEventListener('click', saveAvatar);
 formProfile.addEventListener('input', handleValidate);
-formPoput.addEventListener('input', handleValidatePopup);
+formPopup.addEventListener('input', handleValidatePopup);
 formAvatar.addEventListener('input', handleValidateAvatar);
