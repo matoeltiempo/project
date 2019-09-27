@@ -1,4 +1,5 @@
-import { validate, buttonEdit, renderLoadingProfile, api, userName, userInfo, popupEditLvl } from '../index.js';
+import { validate, buttonEdit, api, userName, userInfo, popupEditLvl } from '../index.js';
+import { renderLoadingProfile } from './renderloading';
 
 export function profileInfo(event) {
     event.preventDefault();

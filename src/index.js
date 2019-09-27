@@ -2,12 +2,13 @@ import './index.css';
 
 import CardList from './js/cardlist.js';
 import {profileInfo} from './js/profileinfo.js';
+import {saveAvatar} from './js/saveavatar.js';
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
 export const userName = root.querySelector('.user-info__name');
 export const userInfo = root.querySelector('.user-info__job');
-const userPhoto = root.querySelector('.user-info__photo');
+export const userPhoto = root.querySelector('.user-info__photo');
 const formPoput = document.querySelector('.popup__form');
 const formProfile = document.querySelector('.popup__form_profile');
 const formAvatar = document.querySelector('.popup__form_avatar');
@@ -26,9 +27,10 @@ const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
 export const buttonEdit = document.querySelector('.popup-profile__button');
+export const buttonSave = document.querySelector('.popup-avatar__button');
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
-const buttonSave = document.querySelector('.popup-avatar__button');
+
 
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
@@ -116,10 +118,10 @@ export class Popup {
 };
 
 const [addCardLevel, editUserLevel, imageLevel, avatarLevel] = root.querySelectorAll('.popup');
-const popupCardLvl = new Popup(addCardLevel);
+export const popupCardLvl = new Popup(addCardLevel);
 export const popupEditLvl = new Popup(editUserLevel);
-const popupImageLvl = new Popup(imageLevel);
-const popupAvatarLvl = new Popup(avatarLevel);
+export const popupImageLvl = new Popup(imageLevel);
+export const popupAvatarLvl = new Popup(avatarLevel);
 
 export class Api {
     constructor(options) {
@@ -212,32 +214,9 @@ function deleteCard(id) {
         });
 }
 
-function editAvatar(url) {
-    renderLoadingAvatar(true);
-    api.setUserAvatar(url)
-        .then(res => {
-            userPhoto.setAttribute('style', `background-image:url('${res.avatar}')`);
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            renderLoadingAvatar(false);
-            popupAvatarLvl.close();
-        });
-}
-
 function resetPopupAddCard() {
     errorElementName.textContent = "";
     errorElementLink.textContent = "";
-}
-
-export function renderLoadingProfile(isLoading) {
-    buttonEdit.textContent = isLoading ? 'Загрузка...' : 'Сохранить';
-}
-
-export function renderLoadingAvatar(isLoading) {
-    buttonSave.textContent = isLoading ? 'Загрузка...' : 'Сохранить';
 }
 
 function handleValidatePopup() {
@@ -329,29 +308,6 @@ function newCard(event) {
         api.setAddCard(name.value, link.value);
         popupCardLvl.close();
         buttonAdd.classList.remove('popup_button_activate');
-        form.reset();
-    } else {
-        console.log('Не прошло');
-    }
-}
-
-function saveAvatar(event) {
-    event.preventDefault();
-
-    const form = document.forms.avatar;
-    const url = form.elements.url;
-    const inputs = Array.from(form.elements);
-
-    let isValidForm = true;
-
-    inputs.forEach((elem) => {
-        if (!elem.classList.contains('popup__button')) {
-            if (!validate(elem)) isValidForm = false;
-        }
-    });
-
-    if (isValidForm) {
-        editAvatar(url.value);
         form.reset();
     } else {
         console.log('Не прошло');
