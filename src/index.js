@@ -3,12 +3,15 @@ import './index.css';
 import CardList from './js/cardlist.js';
 import {profileInfo} from './js/profileinfo.js';
 import {saveAvatar} from './js/saveavatar.js';
+import {activateError, resetError} from './js/activateError';
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
+
 export const userName = root.querySelector('.user-info__name');
 export const userInfo = root.querySelector('.user-info__job');
 export const userPhoto = root.querySelector('.user-info__photo');
+
 const formPoput = document.querySelector('.popup__form');
 const formProfile = document.querySelector('.popup__form_profile');
 const formAvatar = document.querySelector('.popup__form_avatar');
@@ -26,11 +29,12 @@ const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
+
 export const buttonEdit = document.querySelector('.popup-profile__button');
 export const buttonSave = document.querySelector('.popup-avatar__button');
+
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
-
 
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
@@ -252,15 +256,6 @@ function handleValidateAvatar() {
     } else {
         activateError(submitButtonAvatar);
     }
-}
-
-function activateError(button) {
-    button.classList.remove('popup_button_activate');
-    button.setAttribute('disabled', true);
-}
-function resetError(button) {
-    button.classList.add('popup_button_activate');
-    button.removeAttribute('disabled');
 }
 
 export function validate(element) {
