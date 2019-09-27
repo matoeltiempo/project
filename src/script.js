@@ -28,6 +28,8 @@ const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
 const buttonSave = document.querySelector('.popup-avatar__button');
 
+import {userOptions} from './js/userOptions.js';
+
 class Card {
   constructor(name, link, id, owner, likes) {
     this.ownerAdmin = '9f1719d8192a32bc3d8c8364';
@@ -125,17 +127,6 @@ const popupCardLvl = new Popup(addCardLevel);
 const popupEditLvl = new Popup(editUserLevel);
 const popupImageLvl = new Popup(imageLevel);
 const popupAvatarLvl = new Popup(avatarLevel);
-
-const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
-// const serverUrl = 'https://praktikum.tk/cohort2';
-
-const userOptions = {
-  baseUrl: serverUrl,
-  headers: {
-    authorization: '98158e4b-35d4-4082-a4a4-b4f3010b8fcd',
-    'Content-Type': 'application/json'
-  }
-};
 
 class Api {
   constructor(options) {
@@ -342,10 +333,7 @@ function profileInfo(event) {
   const form = document.forms.edit;
   const title = form.elements.title;
   const info = form.elements.info;
-  const inputs = Array.from(form.elements);
-  // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/for...of
-  // оператор for of позволяет работать с коллекциями dom элементов
-  // без конвертации в массив
+  const inputs = Array.from(form.elements); 
 
   let isValidForm = true;
 
@@ -445,11 +433,3 @@ buttonSave.addEventListener('click', saveAvatar);
 formProfile.addEventListener('input', handleValidate);
 formPoput.addEventListener('input', handleValidatePopup);
 formAvatar.addEventListener('input', handleValidateAvatar);
-
-/**
- * Хорошая работа
- *
- * Код аккуратно организован и выполняет функционал задания.
- * Подумайте о разделении проекта на части (модули) для подготовки к
- * следующим заданиям, хорошего обучения)
- */
