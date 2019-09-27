@@ -12,7 +12,7 @@
 <body>
   <div class="root">
     <header class="header root__section">
-      <img src="<%=require('./images/logo.svg')%>" alt="mesto logo" class="logo">
+      <img src="<%=require('./src/images/logo.svg')%>" alt="mesto logo" class="logo">
     </header>
     <div class="profile root__section">
       <div class="user-info">
@@ -26,11 +26,11 @@
       </div>
     </div>
     <div class="places-list root__section">
-
+      
     </div>
     <div class="popup popup_add-new-card">
       <div class="popup__content">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
+        <img src="<%=require('./src/images/close.svg')%>" alt="" class="popup__close">
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="new">
           <input required type="text" name="name" class="popup__input popup__input_type_name" placeholder="Название">
@@ -45,7 +45,7 @@
 
     <div class="popup popup_edit-profile">
       <div class="popup__content">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
+        <img src="<%=require('./src/images/close.svg')%>" alt="" class="popup__close">
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form popup__form_profile" name="edit">
           <input required type="text" minlength="" maxlength="30" name="title"
@@ -61,14 +61,14 @@
 
     <div class="popup popup__image">
       <div class="popup__content_image">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
+        <img src="<%=require('./src/images/close.svg')%>" alt="" class="popup__close">
         <img src="" alt="" class="open_image">
       </div>
     </div>
 
     <div class="popup popup__avatar">
       <div class="popup__content">
-        <img src="<%=require('./images/close.svg')%>" alt="" class="popup__close">
+        <img src="<%=require('./src/images/close.svg')%>" alt="" class="popup__close">
         <h3 class="popup__title">Обновить аватар</h3>
         <form class="popup__form popup__form_avatar" name="avatar">
           <input required type="url" name="url" class="popup__input popup__input-avatar_type_link-url"
@@ -78,7 +78,7 @@
         </form>
       </div>
     </div>
-
+    
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
