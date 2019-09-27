@@ -6,6 +6,10 @@ module.exports = {
           }),
         require('cssnano')({
             preset: 'default',
+        }),
+        require("postcss-inline-svg")({
+            removeFill: true,
+            path: "./src/images/icons"
         })
     ]
 }
