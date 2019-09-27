@@ -1,10 +1,12 @@
 import './index.css';
-import CardList from'./js/CardList';
+
+import CardList from './js/cardlist.js';
+import {profileInfo} from './js/profileinfo.js';
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
-const userName = root.querySelector('.user-info__name');
-const userInfo = root.querySelector('.user-info__job');
+export const userName = root.querySelector('.user-info__name');
+export const userInfo = root.querySelector('.user-info__job');
 const userPhoto = root.querySelector('.user-info__photo');
 const formPoput = document.querySelector('.popup__form');
 const formProfile = document.querySelector('.popup__form_profile');
@@ -23,7 +25,7 @@ const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
-const buttonEdit = document.querySelector('.popup-profile__button');
+export const buttonEdit = document.querySelector('.popup-profile__button');
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
 const buttonSave = document.querySelector('.popup-avatar__button');
@@ -97,7 +99,7 @@ export default class Card {
     }
 }
 
-class Popup {
+export class Popup {
     constructor(popupLevel) {
         this.popup = popupLevel;
         this.popup.addEventListener('click', event => {
@@ -115,7 +117,7 @@ class Popup {
 
 const [addCardLevel, editUserLevel, imageLevel, avatarLevel] = root.querySelectorAll('.popup');
 const popupCardLvl = new Popup(addCardLevel);
-const popupEditLvl = new Popup(editUserLevel);
+export const popupEditLvl = new Popup(editUserLevel);
 const popupImageLvl = new Popup(imageLevel);
 const popupAvatarLvl = new Popup(avatarLevel);
 
@@ -176,7 +178,7 @@ export class Api {
     }
 }
 
-const api = new Api(userOptions);
+export const api = new Api(userOptions);
 
 api.getUserData()
     .then(user => {
@@ -210,22 +212,6 @@ function deleteCard(id) {
         });
 }
 
-function editProfile(name, info) {
-    renderLoadingProfile(true);
-    api.setUserData(name, info)
-        .then(res => {
-            userName.textContent = `${res.name}`;
-            userInfo.textContent = `${res.about}`;
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            renderLoadingProfile(false);
-            popupEditLvl.close();
-        });
-}
-
 function editAvatar(url) {
     renderLoadingAvatar(true);
     api.setUserAvatar(url)
@@ -246,11 +232,11 @@ function resetPopupAddCard() {
     errorElementLink.textContent = "";
 }
 
-function renderLoadingProfile(isLoading) {
+export function renderLoadingProfile(isLoading) {
     buttonEdit.textContent = isLoading ? 'Загрузка...' : 'Сохранить';
 }
 
-function renderLoadingAvatar(isLoading) {
+export function renderLoadingAvatar(isLoading) {
     buttonSave.textContent = isLoading ? 'Загрузка...' : 'Сохранить';
 }
 
@@ -298,7 +284,7 @@ function resetError(button) {
     button.removeAttribute('disabled');
 }
 
-function validate(element) {
+export function validate(element) {
     const errorElement = document.querySelector(`.error-message_${element.name}`);
 
     if (!element.checkValidity() && element.type === 'url') {
@@ -316,31 +302,6 @@ function validate(element) {
         errorElement.textContent = "";
     }
     return true
-}
-
-function profileInfo(event) {
-    event.preventDefault();
-
-    const form = document.forms.edit;
-    const title = form.elements.title;
-    const info = form.elements.info;
-    const inputs = Array.from(form.elements);
-
-    let isValidForm = true;
-
-    inputs.forEach((elem) => {
-        if (!elem.classList.contains('popup__button')) {
-            if (!validate(elem)) isValidForm = false;
-        }
-    });
-
-    if (isValidForm) {
-        editProfile(title.value, info.value);
-        buttonEdit.classList.add('popup_button_activate');
-    } else {
-        console.log('Не прошло');
-        buttonEdit.classList.remove('popup_button_activate');
-    }
 }
 
 function profileValue() {
