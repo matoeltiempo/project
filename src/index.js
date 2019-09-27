@@ -1,4 +1,4 @@
-import './index.css';
+import './style.css';
 
 import CardList from './js/cardlist.js';
 import Api from './js/Api.js';
