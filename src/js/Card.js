@@ -1,5 +1,3 @@
-
-
 const errorElementName = document.querySelector('.error-message_name');
 const errorElementLink = document.querySelector('.error-message_link');
 

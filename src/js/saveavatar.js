@@ -1,5 +1,6 @@
-import { api, validate, popupAvatarLvl, userPhoto } from '../index.js';
+import { api, popupAvatarLvl, userPhoto } from '../index.js';
 import { renderLoadingAvatar } from './renderloading';
+import { validate } from './validate.js';
 
 export function saveAvatar(event) {
     event.preventDefault();

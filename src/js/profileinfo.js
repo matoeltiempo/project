@@ -1,6 +1,7 @@
-import { validate, buttonEdit, api, userName, userInfo, popupEditLvl } from '../index.js';
+import { buttonEdit, api, userName, userInfo, popupEditLvl } from '../index.js';
 import { inputProfileName, inputProfileInfo} from '../index.js';
 import { renderLoadingProfile } from './renderloading.js';
+import { validate } from './validate.js';
 
 export function profileInfo(event) {
     event.preventDefault();

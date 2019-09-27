@@ -1,5 +1,6 @@
-import { validate, inputProfileName, inputProfileInfo, formProfile, formPopup, formAvatar } from '../index.js';
+import { inputProfileName, inputProfileInfo, formProfile, formPopup, formAvatar } from '../index.js';
 import { resetError, activateError } from './activateError.js';
+import { validate } from './validate.js';
 
 const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputLinkUrl = document.querySelector('.popup__input_type_link-url');
