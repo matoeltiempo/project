@@ -13,8 +13,6 @@ const errorElementAvatar = document.querySelector('.error-message_url');
 const errorElementName = document.querySelector('.error-message_name');
 const errorElementLink = document.querySelector('.error-message_link');
 
-const profile = root.querySelector('.profile');
-const buttonOpenPopup = profile.querySelector('.user-info__button');
 const popupAddCard = document.querySelector('.popup_add-new-card');
 const popupForm = popupAddCard.querySelector('.popup__form');
 const buttonAdd = popupForm.querySelector('.popup__button');
@@ -22,11 +20,12 @@ const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
-const errorMessageName = document.querySelector('.error-message-profile_name');
 const buttonEdit = document.querySelector('.popup-profile__button');
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
 const buttonSave = document.querySelector('.popup-avatar__button');
+
+import {userOptions} from './js/userOptions.js';
 
 class Card {
   constructor(name, link, id, owner, likes) {
@@ -34,14 +33,6 @@ class Card {
     this.cardElement = this.createCard(name, link, id, owner, likes);
     this.like = this.like.bind(this);
     this.remove = this.remove.bind(this);
-
-    /**
-     * Можно улучшить
-     * 
-     * удобнее записывать все параметры в поля класса
-     * это позволит использовать внутри методов без повторной передачи
-     * как this.name и тд
-     */
 
     this.likeButton = this.cardElement.querySelector('.place-card__like-icon');
     this.removeButton = this.cardElement.querySelector('.place-card__delete-icon');
@@ -68,7 +59,7 @@ class Card {
     cardName.textContent = name;
     cardLikeIcon.classList.add('place-card__like-icon');
     cardLikeValue.classList.add('place-card__like-value');
-   
+
 
     placesList.appendChild(card);
     card.appendChild(cardImage);
@@ -103,17 +94,10 @@ class CardList {
   }
   addCard(name, link, id, owner, likes) {
     const { cardElement } = new Card(name, link, id, owner, likes);
-    // когда полей много проще передавать весь объект а внутри класса уже
-    // разбирать объект https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Object_destructuring
-    // const { cardElement } = new Card(itemData)
-    // class Card {
-    //  constructor({ name, link, id, owner, likes }) {
-    // this.name = name в таком формате
     this.container.appendChild(cardElement);
   }
   render() {
     this.data.forEach(item => {
-      // получается много параметров - передавать проще весь объект
       this.addCard(item.name, item.link, item._id, item.owner._id, item.likes);
     });
   }
@@ -140,14 +124,6 @@ const popupCardLvl = new Popup(addCardLevel);
 const popupEditLvl = new Popup(editUserLevel);
 const popupImageLvl = new Popup(imageLevel);
 const popupAvatarLvl = new Popup(avatarLevel);
-
-const userOptions = {
-  baseUrl: 'http://95.216.175.5/cohort2',
-  headers: {
-    authorization: '98158e4b-35d4-4082-a4a4-b4f3010b8fcd',
-    'Content-Type': 'application/json'
-  }
-};
 
 class Api {
   constructor(options) {
@@ -354,10 +330,7 @@ function profileInfo(event) {
   const form = document.forms.edit;
   const title = form.elements.title;
   const info = form.elements.info;
-  const inputs = Array.from(form.elements);
-  // https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Statements/for...of
-  // оператор for of позволяет работать с коллекциями dom элементов
-  // без конвертации в массив
+  const inputs = Array.from(form.elements); 
 
   let isValidForm = true;
 
@@ -457,11 +430,3 @@ buttonSave.addEventListener('click', saveAvatar);
 formProfile.addEventListener('input', handleValidate);
 formPoput.addEventListener('input', handleValidatePopup);
 formAvatar.addEventListener('input', handleValidateAvatar);
-
-/**
- * Хорошая работа
- *
- * Код аккуратно организован и выполняет функционал задания.
- * Подумайте о разделении проекта на части (модули) для подготовки к
- * следующим заданиям, хорошего обучения)
- */
