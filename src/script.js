@@ -13,8 +13,6 @@ const errorElementAvatar = document.querySelector('.error-message_url');
 const errorElementName = document.querySelector('.error-message_name');
 const errorElementLink = document.querySelector('.error-message_link');
 
-const profile = root.querySelector('.profile');
-const buttonOpenPopup = profile.querySelector('.user-info__button');
 const popupAddCard = document.querySelector('.popup_add-new-card');
 const popupForm = popupAddCard.querySelector('.popup__form');
 const buttonAdd = popupForm.querySelector('.popup__button');
@@ -22,7 +20,6 @@ const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
-const errorMessageName = document.querySelector('.error-message-profile_name');
 const buttonEdit = document.querySelector('.popup-profile__button');
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
