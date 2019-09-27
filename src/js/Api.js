@@ -55,6 +55,18 @@ export default class Api {
         })
         return this.getResponseJson(result);
     }
+    async likeCard(card) {
+        const result = await fetch(`${this.baseUrl}/cards/like/${card.id}`, {
+            method: 'PUT', headers: this.headers
+        })
+        return this.getResponseJson(result);
+    }
+    async dislikeCard(card) {
+        const result = await fetch(`${this.baseUrl}/cards/like/${card.id}`, {
+            method: 'DELETE', headers: this.headers
+        })
+        return this.getResponseJson(result);
+    }
 }
 
 export function deleteCard(id) {

@@ -52,6 +52,7 @@ export default class Card {
         this.cardElement = this.createCard(name, link, id, owner, likes);
         this.like = this.like.bind(this);
         this.remove = this.remove.bind(this);
+        this.likes = likes;
 
         this.likeButton = this.cardElement.querySelector('.place-card__like-icon');
         this.removeButton = this.cardElement.querySelector('.place-card__delete-icon');
@@ -64,6 +65,7 @@ export default class Card {
         const cardImage = document.createElement('div');
         const cardDescription = document.createElement('div');
         const cardName = document.createElement('h3');
+        const cardLikeContainer = document.createElement('div');
         const cardLikeIcon = document.createElement('button');
         const cardLikeValue = document.createElement('div');
         const cardDeleteIcon = document.createElement('button');
@@ -76,28 +78,37 @@ export default class Card {
         cardDeleteIcon.classList.add('place-card__delete-icon');
         cardName.classList.add('place-card__name');
         cardName.textContent = name;
+        cardLikeContainer.classList.add('place-card__like-container')
         cardLikeIcon.classList.add('place-card__like-icon');
         cardLikeValue.classList.add('place-card__like-value');
-
+        cardLikeValue.textContent = likes.length;
 
         placesList.appendChild(card);
         card.appendChild(cardImage);
         cardImage.appendChild(cardDeleteIcon);
         card.appendChild(cardDescription);
         cardDescription.appendChild(cardName);
-        cardDescription.appendChild(cardLikeIcon);
+        cardDescription.appendChild(cardLikeContainer);
+        cardLikeContainer.appendChild(cardLikeIcon);
+        cardLikeContainer.appendChild(cardLikeValue);
 
         if (owner === this.ownerAdmin) {
             console.log(this);
         }
-        // cardDescription.appendChild(cardLikeValue);
+
 
         return card;
     }
+    updateLikes(likesArr) {
+        this.likes = likesArr;
+        this.cardElement.querySelector('.place-card__like-value').textContent = this.likes.length;
+    }
+
     like() {
         this.likeButton.classList.toggle('place-card__like-icon_liked');
     }
     remove() {
+        
         deleteCard(this.cardElement.id);
         this.cardElement.remove('.place-card');
         this.likeButton.removeEventListener('click', this.like);
