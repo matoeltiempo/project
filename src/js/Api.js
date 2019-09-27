@@ -1,3 +1,5 @@
+import { api } from '../index.js';
+
 export default class Api {
     constructor(options) {
         this.baseUrl = options.baseUrl;
@@ -53,4 +55,14 @@ export default class Api {
         })
         return this.getResponseJson(result);
     }
+}
+
+export function deleteCard(id) {
+    api.deleteCard(id)
+        .then(res => {
+
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }

@@ -1,12 +1,13 @@
 import './index.css';
 
 import CardList from './js/cardlist.js';
-import Api from './js/Api';
+import Api from './js/Api.js';
 
+import {resetPopupAddCard} from './js/Card.js';
+import {deleteCard} from './js/Api.js';
 import {profileInfo, profileValue} from './js/profileinfo.js';
 import {saveAvatar} from './js/saveavatar.js';
 import {activateError, resetError} from './js/activateError';
-
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
@@ -22,14 +23,13 @@ const popupInputName = document.querySelector('.popup__input_type_name');
 const popupInputLinkUrl = document.querySelector('.popup__input_type_link-url');
 const popupAvatarInputLinkUrl = document.querySelector('.popup__input-avatar_type_link-url');
 const errorElementAvatar = document.querySelector('.error-message_url');
-const errorElementName = document.querySelector('.error-message_name');
-const errorElementLink = document.querySelector('.error-message_link');
 
 const popupAddCard = document.querySelector('.popup_add-new-card');
 const popupForm = popupAddCard.querySelector('.popup__form');
 const buttonAdd = popupForm.querySelector('.popup__button');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
+
 export const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 export const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
 
@@ -156,20 +156,7 @@ api.getInitialCards()
         console.log(err);
     });
 
-function deleteCard(id) {
-    api.deleteCard(id)
-        .then(res => {
 
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-}
-
-function resetPopupAddCard() {
-    errorElementName.textContent = "";
-    errorElementLink.textContent = "";
-}
 
 function handleValidatePopup() {
     const titleIsValid = validate(popupInputName);
