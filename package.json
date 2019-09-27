@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/matoeltiempo/project/issues"
   },
-  "homepage": "https://github.com/matoeltiempo/project",
+  "homepage": "https://matoeltiempo.github.io/project/",
   "devDependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.2",
