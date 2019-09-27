@@ -1,5 +1,6 @@
 import { validate, buttonEdit, api, userName, userInfo, popupEditLvl } from '../index.js';
-import { renderLoadingProfile } from './renderloading';
+import { inputProfileName, inputProfileInfo} from '../index.js';
+import { renderLoadingProfile } from './renderloading.js';
 
 export function profileInfo(event) {
     event.preventDefault();
@@ -26,7 +27,7 @@ export function profileInfo(event) {
     }
 }
 
-function editProfile(name, info) {
+export function editProfile(name, info) {
     renderLoadingProfile(true);
     api.setUserData(name, info)
         .then(res => {
@@ -40,4 +41,9 @@ function editProfile(name, info) {
             renderLoadingProfile(false);
             popupEditLvl.close();
         });
+}
+
+export function profileValue() {
+    inputProfileName.setAttribute('value', userName.textContent);
+    inputProfileInfo.setAttribute('value', userInfo.textContent);
 }

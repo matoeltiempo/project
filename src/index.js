@@ -3,7 +3,7 @@ import './index.css';
 import CardList from './js/cardlist.js';
 import Api from './js/Api';
 
-import {profileInfo} from './js/profileinfo.js';
+import {profileInfo, profileValue} from './js/profileinfo.js';
 import {saveAvatar} from './js/saveavatar.js';
 import {activateError, resetError} from './js/activateError';
 
@@ -30,8 +30,8 @@ const popupForm = popupAddCard.querySelector('.popup__form');
 const buttonAdd = popupForm.querySelector('.popup__button');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
-const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
-const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
+export const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
+export const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
 
 export const buttonEdit = document.querySelector('.popup-profile__button');
 export const buttonSave = document.querySelector('.popup-avatar__button');
@@ -224,11 +224,6 @@ export function validate(element) {
         errorElement.textContent = "";
     }
     return true
-}
-
-function profileValue() {
-    inputProfileName.setAttribute('value', userName.textContent);
-    inputProfileInfo.setAttribute('value', userInfo.textContent);
 }
 
 function newCard(event) {
