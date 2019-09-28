@@ -3,6 +3,7 @@ import { inputProfileName, inputProfileInfo} from '../index.js';
 import { renderLoadingProfile, renderLoadingAvatar } from './renderloading.js';
 import { validate } from './validate.js';
 
+
 const userName = document.querySelector('.user-info__name');
 const userInfo = document.querySelector('.user-info__job');
 const userPhoto = document.querySelector('.user-info__photo');

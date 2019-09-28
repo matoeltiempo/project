@@ -1,6 +1,6 @@
 import './style.css';
 
-import CardList from './js/cardlist.js';
+import CardList from './js/Cardlist.js';
 import Api from './js/Api.js';
 
 import { resetPopupAddCard, newCard } from './js/Card.js';
@@ -130,7 +130,6 @@ export const popupImageLvl = new Popup(imageLevel);
 export const popupAvatarLvl = new Popup(avatarLevel);
 
 export const api = new Api(userOptions);
-
 
 api.getUserData()
     .then(user => {
