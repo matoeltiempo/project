@@ -1,5 +1,3 @@
-import {api} from '../index.js';
-
 export default class Api {
     constructor(options) {
         this.baseUrl = options.baseUrl;
@@ -20,6 +18,7 @@ export default class Api {
         const result = await fetch(`${this.baseUrl}/cards`, { headers: this.headers })
         return this.getResponseJson(result);
     }
+    
     async setUserData(name, info) {
         const result = await fetch(`${this.baseUrl}/users/me`, {
             method: 'PATCH', headers: this.headers,

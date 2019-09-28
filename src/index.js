@@ -3,35 +3,27 @@ import './style.css';
 import CardList from './js/cardlist.js';
 import Api from './js/Api.js';
 
-import { resetPopupAddCard } from './js/Card.js';
-import { deleteCard } from './js/Api.js';
-import { profileInfo, profileValue } from './js/profileinfo.js';
-import { saveAvatar } from './js/saveavatar.js';
+import { resetPopupAddCard, newCard } from './js/Card.js';
+import { profileInfo, profileValue, saveAvatar } from './js/user.js';
 import { handleValidate, handleValidatePopup, handleValidateAvatar } from './js/handlevalidate.js';
-import { validate } from './js/validate.js';
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
-
-export const userName = root.querySelector('.user-info__name');
-export const userInfo = root.querySelector('.user-info__job');
-export const userPhoto = root.querySelector('.user-info__photo');
 
 export const formPopup = document.querySelector('.popup__form');
 export const formProfile = document.querySelector('.popup__form_profile');
 export const formAvatar = document.querySelector('.popup__form_avatar');
 
 const errorElementAvatar = document.querySelector('.error-message_url');
-const popupAddCard = document.querySelector('.popup_add-new-card');
-const popupForm = popupAddCard.querySelector('.popup__form');
-const buttonAdd = popupForm.querySelector('.popup__button');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
 
 export const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 export const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
 export const buttonEdit = document.querySelector('.popup-profile__button');
+export const buttonAdd = document.querySelector('.popup__button');
 export const buttonSave = document.querySelector('.popup-avatar__button');
+
 
 const popupImage = document.querySelector('.popup__image');
 const openImage = popupImage.querySelector('.open_image');
@@ -47,9 +39,10 @@ export const userOptions = {
 };
 
 export default class Card {
-    constructor(name, link, id, owner, likes) {
-        this.ownerAdmin = '9f1719d8192a32bc3d8c8364';
-        this.cardElement = this.createCard(name, link, id, owner, likes);
+    constructor(name, link, likes, id, owner, ownerName) {
+        this.cardElement = this.createCard(name, link, likes, id, owner);
+        this.ownerAdmin = ownerName;
+
         this.like = this.like.bind(this);
         this.remove = this.remove.bind(this);
         this.likes = likes;
@@ -60,7 +53,7 @@ export default class Card {
         this.cardElement.querySelector('.place-card__like-icon').addEventListener('click', this.like);
         this.cardElement.querySelector('.place-card__delete-icon').addEventListener('click', this.remove);
     }
-    createCard(name, link, id, owner, likes) {
+    createCard(name, link, likes, id, owner) {
         const card = document.createElement('div');
         const cardImage = document.createElement('div');
         const cardDescription = document.createElement('div');
@@ -146,12 +139,13 @@ export const popupAvatarLvl = new Popup(avatarLevel);
 
 export const api = new Api(userOptions);
 
+
 api.getUserData()
     .then(user => {
         if (user.name && user.about && user.avatar) {
-            userName.textContent = user.name;
-            userInfo.textContent = user.about;
-            userPhoto.setAttribute('style', `background-image:url('${user.avatar}')`);
+            document.querySelector('.user-info__name').textContent = user.name;
+            document.querySelector('.user-info__job').textContent = user.about;
+            document.querySelector('.user-info__photo').setAttribute('style', `background-image:url('${user.avatar}')`);
         }
     })
     .catch((err) => {
@@ -167,32 +161,6 @@ api.getInitialCards()
     .catch((err) => {
         console.log(err);
     });
-
-function newCard(event) {
-    event.preventDefault();
-
-    const form = document.forms.new;
-    const name = form.elements.name;
-    const link = form.elements.link;
-    const inputs = Array.from(form.elements);
-
-    let isValidForm = true;
-
-    inputs.forEach((elem) => {
-        if (!elem.classList.contains('popup__button')) {
-            if (!validate(elem)) isValidForm = false;
-        }
-    });
-
-    if (isValidForm) {
-        api.setAddCard(name.value, link.value);
-        popupCardLvl.close();
-        buttonAdd.classList.remove('popup_button_activate');
-        form.reset();
-    } else {
-        console.log('Не прошло');
-    }
-}
 
 root.addEventListener('click', function (event) {
     if (event.target.classList.contains('user-info__button')) {
@@ -211,6 +179,7 @@ root.addEventListener('click', function (event) {
     } else if (event.target.classList.contains('user-info__photo')) {
         popupAvatarLvl.open();
         formAvatar.reset();
+        handleValidateAvatar();
         errorElementAvatar.textContent = '';
     }
 });

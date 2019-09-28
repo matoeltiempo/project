@@ -6,13 +6,13 @@ export default class CardList {
         this.data = data;
         this.render();
     }
-    addCard(name, link, id, owner, likes) {
-        const { cardElement } = new Card(name, link, id, owner, likes);
+    addCard(name, link, likes, id, owner, ownername) {
+        const { cardElement } = new Card(name, link, likes, id, owner, ownername);
         this.container.appendChild(cardElement);
     }
     render() {
         this.data.forEach(item => {
-            this.addCard(item.name, item.link, item._id, item.owner._id, item.likes);
+            this.addCard(item.name, item.link, item.likes, item._id, item.owner._id, item.owner.name);
         });
     }
 }
