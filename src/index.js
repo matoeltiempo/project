@@ -1,6 +1,6 @@
 import './style.css';
 
-import CardList from './js/Cardlist.js';
+import CardList from './js/CardList';
 import Api from './js/Api.js';
 
 import { resetPopupAddCard, newCard } from './js/Card.js';
