@@ -9,24 +9,16 @@ import { handleValidate, handleValidatePopup, handleValidateAvatar } from './js/
 
 const root = document.querySelector('.root');
 const placesList = root.querySelector('.places-list');
+const popupProfileForm = document.querySelector('.popup__form_profile');
 
 export const formPopup = document.querySelector('.popup__form');
 export const formProfile = document.querySelector('.popup__form_profile');
 export const formAvatar = document.querySelector('.popup__form_avatar');
-
-const errorElementAvatar = document.querySelector('.error-message_url');
-const popupProfile = document.querySelector('.popup_edit-profile');
-const popupProfileForm = popupProfile.querySelector('.popup__form_profile');
-
 export const inputProfileName = popupProfileForm.querySelector('.popup__input_type_name');
 export const inputProfileInfo = popupProfileForm.querySelector('.popup__input_type_info');
 export const buttonEdit = document.querySelector('.popup-profile__button');
 export const buttonAdd = document.querySelector('.popup__button');
 export const buttonSave = document.querySelector('.popup-avatar__button');
-
-
-const popupImage = document.querySelector('.popup__image');
-const openImage = popupImage.querySelector('.open_image');
 
 const serverUrl = NODE_ENV === 'development' ? 'http://praktikum.tk/cohort2' : 'https://praktikum.tk/cohort2';
 
@@ -174,13 +166,13 @@ root.addEventListener('click', function (event) {
         popupEditLvl.open();
     } else if (event.target.classList.contains('place-card__image')) {
         let getImage = event.target.getAttribute('style').split("'");
-        openImage.src = `${getImage[1]}`;
+        document.querySelector('.open_image').src = `${getImage[1]}`;
         popupImageLvl.open();
     } else if (event.target.classList.contains('user-info__photo')) {
         popupAvatarLvl.open();
         formAvatar.reset();
         handleValidateAvatar();
-        errorElementAvatar.textContent = '';
+        document.querySelector('.error-message_url').textContent = '';
     }
 });
 

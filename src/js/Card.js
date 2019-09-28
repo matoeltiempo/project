@@ -30,4 +30,5 @@ export function newCard(event) {
 export function resetPopupAddCard() {
     document.querySelector('.error-message_name').textContent = "";
     document.querySelector('.error-message_link').textContent = "";
+    buttonAdd.classList.remove('popup_button_activate');
 }
